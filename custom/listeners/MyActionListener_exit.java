@@ -39,7 +39,9 @@ public class MyActionListener_exit implements ActionListener {
 	
 	myprocess2.processInput.write("q \n"); //stop the firmware
 	myprocess2.processInput.flush(); 
-//	myprocess2.processInput.write("pkill -9 -f nios2-gdb-server \n");
+	myprocess2.processInput.write("pkill -9 nois2-terminal \n");
+	myprocess2.processInput.flush(); 
+	
       } 
       catch  (IOException ex_b2) 
       {
@@ -63,7 +65,7 @@ public class MyActionListener_exit implements ActionListener {
 	}
       }
       myprocess.process.destroy();
-      //  myprocess2.process.destroy();
+      myprocess2.process.destroy();
       System.exit(0);
     }
 }

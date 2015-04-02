@@ -43,7 +43,11 @@ public class GrapherThread extends Thread
 								PlotOrientation.VERTICAL,
 								false,false,false);
 	XYPlot plot = (XYPlot) chart.getPlot();
-
+	plot.setBackgroundPaint(new Color(0xffb347));
+        plot.setDomainGridlinesVisible(true);
+        plot.setDomainGridlinePaint(Color.black);
+        plot.setRangeGridlinePaint(Color.black);
+	
 	NumberAxis range = (NumberAxis) plot.getRangeAxis();
 	range.setAutoRangeIncludesZero(false);
 	range.setAutoRange(true);
@@ -52,10 +56,11 @@ public class GrapherThread extends Thread
 
 	XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 	renderer.setSeriesLinesVisible(0, false);//no lines
-	renderer.setUseFillPaint(true);//fill shapes with paint
-	
+	renderer.setUseFillPaint(false);//fill shapes with paint
+	renderer.setSeriesPaint(0, Color.black);
+
 	plot.setRenderer(renderer);
-	plot.setBackgroundPaint(Color.white);
+	//plot.setBackgroundPaint(Color.white);
         
 	panel.setChart(chart); //add graph to chart panel
 	 
@@ -73,6 +78,11 @@ public class GrapherThread extends Thread
 		     if (set.graphed || !set.histgraphed) //so we don't use same data more than once
 		       continue;//or take data before histogram, if saver is too slow.
 		     set = queue.poll(); //remove the data
+		     if (set == null) 
+		     {
+		       TAWriter.TAWrite(target, new String("GraphThread error: queue changed too fast or unpredictably"));
+		       break; 	 //GrapherThread: got it
+		     }
 		     set.graphed = true; //set the flag so it's not used again
 		     try
 		     {
@@ -101,7 +111,12 @@ public class GrapherThread extends Thread
 		       continue;//GrapherThread: NOT my turn 
 		     
 		     set = queue.poll(); //remove the data - GrapherThread: my turn 
-		    
+		     if (set == null) 
+		     {
+		       TAWriter.TAWrite(target, new String("GraphThread error: queue changed too fast or unpredictably"));
+		       break; 	 //GrapherThread: got it
+		     }
+		     
 		     data.clear(); // clear previous run
 		     for (int i = 0; i<set.getLength(); i++)     
 		       data.add(set.isamp[i],set.adc[i]); //add data to chart

@@ -39,6 +39,11 @@ public class SaverThread extends Thread {
 		if (!set.histgraphed) //so we don't use data before hist grapher 
 		  continue;
 	        set = queue.poll();
+		if (set == null) 
+		{
+		  TAWriter.TAWrite(target, new String("SaveThread error: queue changed too fast or unpredictably "));
+		  break; 	 //GrapherThread: got it
+		}
 		try
 		{
 		  //full file name

@@ -31,6 +31,11 @@ public class MainTextPanel extends JPanel{
       ta_main.setEditable(false);
       ta_main.setFont(TAWriter.myFont);
       ta_main.setTabSize(4);
+  
+      TAWriter.TAWrite_EDT(ta_main,new String("SELECT SHELL FILE")); 
+      TAWriter.TAWrite_EDT(ta_main,new String("SELECT SAVE FILE DIRECTORY")); 
+      TAWriter.TAWrite_EDT(ta_main,new String("EXIT USING EXIT BUTTON")); 
+ 
        
       add(b_main_tofile, "cell 1 0, width 100:100:100, height 25:25:25, align right, grow 0");
       add(b_main_clear, "cell 1 0, width 100:100:100, height 25:25:25, align right, grow 0");

@@ -34,7 +34,7 @@ public class MyActionListener_destroy_firm implements ActionListener {
       }
       try 
       {  
-	myprocess.processInput.write("pkill -9 -f nios2-gdb-server \n");
+	myprocess.processInput.write("pkill -9 nois2-terminal \n");
 	myprocess.processInput.flush(); 
 	myprocess.process.destroy();
       } 

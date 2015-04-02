@@ -84,11 +84,7 @@ public class gui extends JFrame
       TAWriter.TAWrite_EDT(ta_main,"Home directory not choosen");        
       System.exit(0);
     }
-    
-    TAWriter.TAWrite_EDT(ta_main,new String("SELECT SHELL FILE")); 
-    TAWriter.TAWrite_EDT(ta_main,new String("SELECT SAVE FILE DIRECTORY")); 
-    TAWriter.TAWrite_EDT(ta_main,new String("EXIT USING EXIT BUTTON")); 
-    
+   
     
     GraphSavePanel panel_grsave = new GraphSavePanel(ta_main);
     GraphSaveComp grsvcomp  = new GraphSaveComp(panel_grsave.getSelectButton(), 

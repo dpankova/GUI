@@ -10,6 +10,7 @@ import org.jfree.chart.renderer.xy.*;
 import org.jfree.data.xy.*;
 import org.jfree.chart.axis.*;
 import org.jfree.data.statistics.*;
+import org.jfree.chart.renderer.category.*;
 
 import service.*; 
 import custom.threads.*; 
@@ -40,9 +41,17 @@ public class HistGrapherThread extends Thread
 							      PlotOrientation.VERTICAL,
 							      false,false,false);
 	XYPlot plot = (XYPlot) chart.getPlot();   
-        plot.setForegroundAlpha(0.85f);   
+        plot.setForegroundAlpha(0.85f); 
+	plot.setBackgroundPaint(new Color(0xffb347));
+        plot.setDomainGridlinesVisible(true);
+        plot.setDomainGridlinePaint(Color.black);
+        plot.setRangeGridlinePaint(Color.black);
+
         XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();   
-        renderer.setDrawBarOutline(false);  
+	renderer.setBarPainter(new StandardXYBarPainter()); //removes color gradient from bars
+	renderer.setSeriesPaint(0, Color.black);
+	renderer.setDrawBarOutline(false); 
+
 	panel.setChart(chart); //add graph to chart panel
 	//--------------------- /Create graph ----------------------------------------
 	Thread thisThread = Thread.currentThread();
@@ -57,6 +66,11 @@ public class HistGrapherThread extends Thread
 		       continue;//if saver is too slow. i.e HistGrapherThread: NOT MY TURN 
 		
 		     set = queue.poll();//remove the data, i.e HistGrapherThread: MY TURN
+		     if (set == null) 
+		     {
+		       TAWriter.TAWrite(target, new String("HistGraphThread error: queue changed too fast or unpredictably "));
+		       break;   
+		     }
 		     int length = set.getLength();		     
 		     set.histgraphed = true; //set the flag so it's not used again
 		     try
