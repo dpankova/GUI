@@ -1,0 +1,17 @@
+GUI
+
+gui.java     - main class (compile and run it to start the program)
+/main/       - contains custom panel classes, one for(almost) 
+               every section of the main frame
+/service/    - contains service classes (data containers and etc.) 
+               to simplify operation
+/custom/     - contains custom action listeners, threads and 
+               a file chooser class
+/lib/        - external libraries (jfreechart, miglayout)
+
+It's very likely this vertion of Gui is not fast enough 
+to handle real data streams. This will require additional 
+modifications.
+
+Known bugs to correct:
+1) Exit button doesn't finish firmaware process properly (in progress)
