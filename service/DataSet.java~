@@ -1,0 +1,24 @@
+//Class for Holding Data
+package service;
+
+import java.util.*;
+
+public class DataSet
+{
+  public int N;
+  public String name = null;
+  public int[] isamp = new int[N];
+  public int[] adc = new int[N];
+  public int[] time = new int[N];
+  public int[] tot = new int[N];
+  public int[] eoe = new int[N];
+  
+  public DataSet( int N ) {  
+    this.N = N;
+    Arrays.fill(isamp,0);
+    Arrays.fill(adc,0);
+    Arrays.fill(time,0);
+    Arrays.fill(tot,0);
+    Arrays.fill(eoe,0);
+  }
+}

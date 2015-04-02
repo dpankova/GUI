@@ -1,0 +1,67 @@
+// Thread that reads the output of the main process, selects the data and puts it ino the 
+// blocking queue
+// NOTE unlike listeners it uses different thread safe writer
+package custom.threads;
+
+import javax.swing.*;
+import java.io.*;
+
+import service.*;  
+
+ static  public class ReaderThread extends Thread 
+  {    
+    public static Pattern pattern = Pattern.compile("([0-9]{1,10},[ ]{1,10}){5}");
+    public static Pattern pattern2 = Pattern.compile("start timestamp");
+    public static Pattern pattern3 = Pattern.compile("isamp   adc   time  tot  eoe");
+    
+    private BufferedReader reader = null;
+    private final BlockingQueue<String> queue;
+    private java.awt.Component  target = null;     // The component which will receive the event.
+    public ReaderThread(BufferedReader reader,java.awt.Component target, 
+			BlockingQueue<String> queue) 
+      {
+	this.reader = reader;
+	this.queue = queue;
+	this.target = target;
+      }
+
+    @Override
+    public void run() 
+      {
+	String line = null;
+	try 
+	{
+	  Thread thisThread = Thread.currentThread();
+	  while (!thisThread.isInterrupted()) 
+	  {
+	    while ((line = reader.readLine()) != null) 
+	    {
+	      
+	      Matcher matcher = pattern.matcher(line);
+	      Matcher matcher2 = pattern2.matcher(line);
+	      Matcher matcher3 = pattern3.matcher(line);
+	      if (matcher.find())
+	      {
+		queue.put(line);
+		continue;
+	      }
+	      if (matcher2.find())
+		queue.put(line);
+	      if (matcher3.find())
+		continue;
+	      TAWriter.TAWrite(target, line);
+	    }
+	  } 
+	}
+	catch(IOException exception)   
+	{
+	  TAWriter.TAWrite(target, new String("Thread error: " +
+					      exception.getMessage())); 
+	}	
+	catch(InterruptedException exception2) 
+	{
+	  TAWriter.TAWrite(target, new String("Thread error: " + 
+					      exception2.getMessage())); 
+	}
+      }    
+ } 
