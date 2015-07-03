@@ -20,11 +20,13 @@ public class MyActionListener_restart_nios implements ActionListener {
   public JTextArea ta_main;
   public GraphSaveComp gsc;
   public ChartPanel panel;
+  public ChartPanel panel2;
   public BlockingQueue<DataSet> queue;
   public java.awt.Component target;
   public MyActionListener_restart_nios( ProcessBuilder processbuilder,
 					MyProcess myprocess, GraphSaveComp gsc, 
-					ChartPanel panel, JTextArea ta_main,
+					ChartPanel panel,ChartPanel panel2,
+					JTextArea ta_main,
 					java.awt.Component target,
 					BlockingQueue<DataSet> queue) {
     this.myprocess = myprocess;
@@ -32,6 +34,7 @@ public class MyActionListener_restart_nios implements ActionListener {
     this.queue = queue; 
     this.gsc = gsc;
     this.panel = panel;
+    this.panel2 = panel2;
     this.ta_main = ta_main;
     this.processbuilder=processbuilder;
   }
@@ -46,22 +49,24 @@ public class MyActionListener_restart_nios implements ActionListener {
 	{
 	myprocess.setOutput();
 	myprocess.setInput();
+
 	
 	ThreadStart reader = new ThreadStart(myprocess,target,queue);
+	ThreadStart hist_grapher = new ThreadStart(myprocess,panel2,target,queue);
 	ThreadStart grapher = new ThreadStart(myprocess,gsc,panel,target,queue);
 	ThreadStart saver = new ThreadStart(myprocess,gsc,target,queue);
-	TAWriter.TAWrite_EDT(ta_main,new String("NIOS Shell: Process restarted")); 
+	TAWriter.TAWrite_EDT(ta_main,new String("NIOS2 Shell: Process restarted")); 
 	}
 	else
 	{
-	  TAWriter.TAWrite_EDT(ta_main,new String("Nios Shell: Process restart failed, restart gui")); 
+	  TAWriter.TAWrite_EDT(ta_main,new String("Nios2 Shell: Process restart failed, restart gui")); 
 	}
        
 
       }
       else
       {
-	TAWriter.TAWrite_EDT(ta_main,new String("NIOS Shell: Process is running already "+
+	TAWriter.TAWrite_EDT(ta_main,new String("NIOS2 Shell: Process is running already "+
 						"interrunpt it first"));
 	
       }

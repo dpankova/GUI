@@ -37,6 +37,7 @@ public class MyActionListener_enter_nios implements ActionListener {
 	{
 	  myprocess.processInput.write(filename +" \n");
 	  myprocess.processInput.flush(); 
+	 
 	} 
 	catch  (IOException ex_b2) 
 	{

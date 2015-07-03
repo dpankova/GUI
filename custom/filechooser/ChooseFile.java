@@ -58,11 +58,11 @@ public class ChooseFile
       if (option == JFileChooser.APPROVE_OPTION) 
       {
         path = chooser.getSelectedFile().getAbsolutePath();
-	TAWriter.TAWrite_EDT(set.ta_main, new String(set.dialog_name + ": file saved -"+path)); 
+	TAWriter.TAWrite_EDT(set.ta_main, new String(set.dialog_name + ": file selected -"+path)); 
       }
       else
       {
-	TAWriter.TAWrite_EDT(set.ta_main, new String(set.dialog_name + ": not saved")); 
+	TAWriter.TAWrite_EDT(set.ta_main, new String(set.dialog_name + ": not selected")); 
       }
     }
   

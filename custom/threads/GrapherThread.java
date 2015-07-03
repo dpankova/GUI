@@ -39,7 +39,7 @@ public class GrapherThread extends Thread
 	XYSeries data = new XYSeries("data");
 	XYSeriesCollection dataset = new XYSeriesCollection(data);
 	
-	final JFreeChart chart = ChartFactory.createScatterPlot(null,null,null,dataset,
+	JFreeChart chart = ChartFactory.createScatterPlot(null,null,null,dataset,
 								PlotOrientation.VERTICAL,
 								false,false,false);
 	XYPlot plot = (XYPlot) chart.getPlot();
@@ -55,13 +55,13 @@ public class GrapherThread extends Thread
 	domain.setAutoRange(true);
 
 	XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-	renderer.setSeriesLinesVisible(0, false);//no lines
+	renderer.setSeriesLinesVisible(0, true);//yes lines
 	renderer.setUseFillPaint(false);//fill shapes with paint
 	renderer.setSeriesPaint(0, Color.black);
 
 	plot.setRenderer(renderer);
-	//plot.setBackgroundPaint(Color.white);
-        
+
+	panel.removeAll();
 	panel.setChart(chart); //add graph to chart panel
 	 
 	//--------------------- /Create graph ----------------------------------------
@@ -80,7 +80,7 @@ public class GrapherThread extends Thread
 		     set = queue.poll(); //remove the data
 		     if (set == null) 
 		     {
-		       TAWriter.TAWrite(target, new String("GraphThread error: queue changed too fast or unpredictably"));
+		       //   TAWriter.TAWrite(target, new String("GraphThread error: queue changed too fast or unpredictably"));
 		       break; 	 //GrapherThread: got it
 		     }
 		     set.graphed = true; //set the flag so it's not used again

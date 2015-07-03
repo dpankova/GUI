@@ -13,7 +13,7 @@ public class TAWriter
   public static void TAWrite_EDT(JTextArea area , String message ) 
     {
       area.append(message +"\n");
-      area.setCaretPosition(area.getDocument().getLength());  
+      //area.setCaretPosition(area.getDocument().getLength());  
     }
   public static void TAWrite( java.awt.Component target , String message ) //using gui event queue
     { 

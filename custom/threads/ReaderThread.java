@@ -94,14 +94,14 @@ public class ReaderThread extends Thread
 		  }
 
 		  
-		  matcher_time.reset(line); //get timestamp
+		  /* matcher_time.reset(line); //get timestamp
 		  if (matcher_time.find())
 		  {
 		    parts = line.split("[,]{0,1}[ ]{1,10}");
 		    Timestamp stamp = new Timestamp(Long.parseLong(parts[3].trim(),10));
 		    java.sql.Date date = new java.sql.Date(stamp.getTime());
 		    set.name = df.format(date); 
-		  }
+		    }*/
 		  TAWriter.TAWrite(target, line);
 	      
 	     if(thisThread.isInterrupted())

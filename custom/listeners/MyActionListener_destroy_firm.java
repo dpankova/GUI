@@ -27,23 +27,24 @@ public class MyActionListener_destroy_firm implements ActionListener {
 	}
 	catch  (IllegalStateException ex_b1) 
 	{
-	  TAWriter.TAWrite_EDT(ta_main,new String("ENter NIOS: "+
+	  TAWriter.TAWrite_EDT(ta_main,new String("Firmware:"+
 						  " IllegalStateException was caught: "+
 						  ex_b1.getMessage()));    
 	}
       }
       try 
       {  
-	myprocess.processInput.write("pkill -9 nois2-terminal \n");
+	myprocess.processInput.write("q\n");
 	myprocess.processInput.flush(); 
-	myprocess.process.destroy();
+	myprocess.processInput.write("pkill -9 nios2-terminal\n");
+	myprocess.processInput.flush(); 
       } 
       catch  (IOException ex_b2) 
       {
-	TAWriter.TAWrite_EDT(ta_main,new String("Enter the NIOS: "+
+	TAWriter.TAWrite_EDT(ta_main,new String("Firmware : "+
 						"IOException was caught: "+
 						ex_b2.getMessage()));   
       }
- 
+      myprocess.process.destroy();
     }
 }

@@ -23,8 +23,8 @@ public class FirmwarePanel extends JPanel{
   static JButton b_load_firm = new JButton("<html><center>Load Firmware</center></html>");
   static JButton b_sel_firm = new JButton("<html><center>...</center></html>");  
   static JButton b_firm_stop= new JButton("<html><center>Interrupt</center></html>");
-  static JLabel l_firm = new JLabel("Firmware:");  
-  static JTextArea ta_firm = new JTextArea("select firmware");
+  static JLabel l_firm = new JLabel("Select Firmware file:");  
+  static JTextArea ta_firm = new JTextArea("select .sof file");
   static JScrollPane sp_firm = new JScrollPane(ta_firm);
 
   public JMenu menu;
@@ -48,11 +48,11 @@ public class FirmwarePanel extends JPanel{
       
       setLayout(new MigLayout()); 
       setBorder(BorderFactory.createEtchedBorder());
-      add(b_load_firm, "cell 1 0, width 150:150:150, height 25:25:25, align, center, grow 0");
-      add(b_sel_firm, "cell 1 1, width 50:50:50, height 25:25:25, align center, grow 0");
-      add(sp_firm, "cell 0 1, width 100:800:800, height 35:35:35, growx");
-      add(l_firm, "cell 0 0, width 100:130:130, height 10:25:25, grow 0");
-      add(b_firm_stop, "cell 0 2 2 1, width 150:150:150, height 25:25:25,  align, center, grow 0");
+      add(b_load_firm, "cell 0 2, span, width 150:150:150, height 25:25:25, align, center, grow 0");
+      add(b_sel_firm, "cell 5 1, width 50:50:50, height 25:25:25, align center, grow 0");
+      add(sp_firm, "cell 0 1, span 5, width 100:800:800, height 35:35:35, growx");
+      add(l_firm, "cell 0 0, span, width 200:200:200, height 10:25:25, grow 0");
+      add(b_firm_stop, "cell 0 2, span, width 150:150:150, height 25:25:25,  align, center, grow 0");
       
       ChooserDataSet set_firm = new ChooserDataSet(b_sel_firm, ta_firm, ta_main,
       "/pingu/gen2dom-fw/ddc2_sockit_nios2/quartus_project/output_files/", "Select .sof file","sof files","sof");

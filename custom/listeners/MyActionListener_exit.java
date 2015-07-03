@@ -39,7 +39,7 @@ public class MyActionListener_exit implements ActionListener {
 	
 	myprocess2.processInput.write("q \n"); //stop the firmware
 	myprocess2.processInput.flush(); 
-	myprocess2.processInput.write("pkill -9 nois2-terminal \n");
+	myprocess2.processInput.write("pkill -9 nios2-terminal \n");
 	myprocess2.processInput.flush(); 
 	
       } 

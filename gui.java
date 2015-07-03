@@ -48,7 +48,7 @@ public class gui extends JFrame
       
       redirectSystemStreams();
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setBounds(200,200,1000,800);
+      setBounds(200,200,1100,800);
       enableEvents(SimpleAWTEvent.EVENT_ID); 
       b_exit.setBackground(Color.orange);
       
@@ -92,7 +92,7 @@ public class gui extends JFrame
 						  panel_grsave.getSaveButton(),
 						  panel_grsave.getTextArea());
 
-      
+         
       ProcessBuilder processbuilder = new ProcessBuilder("/bin/bash");
       processbuilder.redirectErrorStream(true);
       processbuilder.directory(new File(cdir.getPath()));
@@ -102,7 +102,7 @@ public class gui extends JFrame
       MyProcess myprocess = new MyProcess(processbuilder,ta_main);
       
       Boolean flag = myprocess.setProcess();
-      if (!flag)
+      if (!flag)//if process fails
       {
 	TAWriter.TAWrite_EDT(ta_main,new String("Nios shell: intial process failed"));
       }
@@ -114,7 +114,7 @@ public class gui extends JFrame
 	ThreadStart hist_grapher = new ThreadStart(myprocess,panel_h,this,que);
 	ThreadStart grapher = new ThreadStart(myprocess,grsvcomp,panel_ch,this,que);
 	ThreadStart saver = new ThreadStart(myprocess,grsvcomp,this,que);
-      }   
+	}   
       
       //firmware process
       MyProcess myprocess_firm = new MyProcess(processbuilder,ta_main);
@@ -131,15 +131,15 @@ public class gui extends JFrame
 	ThreadStart reader_firm = new ThreadStart(myprocess_firm,this);  
       }   
       //make a map of componenets to be disabled until file is chosen
-      Map<Integer, Component> mapDisableMain = new HashMap<Integer, Component> (22);
+       Map<Integer, Component> mapDisableMain = new HashMap<Integer, Component> (22);
       //create panels
-      MainTextPanel panel_main = new MainTextPanel(ta_main);
-      LoadNiosPanel panel_loadN = new LoadNiosPanel(ta_main, myprocess);
-      FirmwarePanel panel_firm = new FirmwarePanel(this, myprocess_firm, menu_f, ta_shell , ta_main);
-      ServicePanel panel_ser = new ServicePanel(this, myprocess, myprocess_firm, 
-						menu_h, mapDisableMain);
+       MainTextPanel panel_main = new MainTextPanel(ta_main);
+       LoadNiosPanel panel_loadN = new LoadNiosPanel(ta_main, myprocess);
+       FirmwarePanel panel_firm = new FirmwarePanel(this, myprocess_firm, menu_f, ta_shell , ta_main);
+       ServicePanel panel_ser = new ServicePanel(this, myprocess, myprocess_firm, 
+						 menu_h, mapDisableMain);
       
-      //add components to the map for disabling
+       // add components to the map for disabling
       Component[] com = panel_firm.getComponents();
       int comlen = com.length;
       
@@ -156,16 +156,16 @@ public class gui extends JFrame
       //the last panel, since we need to pass it a map what is already filled with elements
       EnterNiosPanel panel_enterN= new EnterNiosPanel(this, myprocess, menu_m, ta_shell, 
 						      b_exit, mapDisableMain, ta_main);
-     
-      //place panels onto the frame
-      panel.add(panel_main,"cell 0 2 3 1, width 620:2000:2000, height 100:2000:2000, grow");
-      panel.add(panel_loadN,"cell 2 0 2 1, width 200:800:800, height 125:125:125, growx");
-      panel.add(panel_enterN,"cell 0 0, width 200:800:800, height 115:115:115, aligny top, growx");
-      panel.add(panel_firm,"cell 1 0, width 200:800:800, height 115:115:115, aligny top, growx");
-      panel.add(panel_grsave,"cell 0 3 3 1, width 620:2000:2000, height 50:50:50, growx");
       
-      panel.add(panel_ch,"cell 0 4 2 1, width 420:1500:2000, height 100:2000:2000, grow"); //change H
-      panel.add(panel_h,"cell 2 4 1 1, width 200:800:2000, height 100:2000:2000, grow"); //add H
+      //place panels onto the frame
+      panel.add(panel_main,"cell 0 2 3 1, width 700:2000:2000, height 100:2000:2000, grow");
+      panel.add(panel_loadN,"cell 2 0 1 2, width 350:800:800, height 190:190:190, growx");
+      panel.add(panel_enterN,"cell 0 0, width 350:800:800, height 115:115:115, growx");
+      panel.add(panel_firm,"cell 1 0, width 350:800:800, height 115:115:115, growx");
+      panel.add(panel_grsave,"cell 0 1 2 1, width 700:1500:2000, height 70:70:70, growx");
+      
+      panel.add(panel_ch,"cell 0 3 2 1, width 500:1500:2000, height 100:2000:2000, grow"); //change H
+      panel.add(panel_h,"cell 2 3 1 1, width 200:800:2000, height 100:2000:2000, grow"); //add H
     
       getContentPane().add(panel, BorderLayout.CENTER);
       setJMenuBar(menubar);
@@ -174,7 +174,7 @@ public class gui extends JFrame
       b_exit.addActionListener(new MyActionListener_exit(myprocess, myprocess_firm, ta_main)); 
       i_fRestart.addActionListener(new MyActionListener_restart_firm(processbuilder, myprocess_firm, ta_main, this));
       i_mRestart.addActionListener(new MyActionListener_restart_nios(processbuilder, myprocess, grsvcomp, 
-								   panel_ch, ta_main, this, que));
+								     panel_ch, panel_h, ta_main, this, que));
  
     }
  
@@ -223,11 +223,8 @@ public class gui extends JFrame
     System.setOut(new PrintStream(out, true));
     System.setErr(new PrintStream(out, true));
   }
-//------------------- Main Method ------------------------------
-  static public void CreateShowGui()
-    {      
-      gui gui_main = new gui();	 
-    }
+
+
 //------------------- Main method ------------------------------
   public static  void main(String[] args) 
     {
@@ -237,7 +234,7 @@ public class gui extends JFrame
 	{
 	  public void run() 
 	    {
-	      CreateShowGui();
+	       gui gui = new gui();	 
 	    }
 	});
     } 

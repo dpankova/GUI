@@ -5,6 +5,8 @@ package custom.threads;
 import javax.swing.*;
 import java.io.*;
 import java.util.concurrent.*;
+import java.text.*;
+import java.util.*;
 
 import service.*;  
 
@@ -26,6 +28,7 @@ public class SaverThread extends Thread {
     {	
       //DataSet set; data queue element
       Thread thisThread = Thread.currentThread();
+      String timeStamp;
       while (!thisThread.isInterrupted()) 
       {
    	  while (gr_el.tb_save.isSelected()) //if user wants data saved
@@ -47,7 +50,8 @@ public class SaverThread extends Thread {
 		try
 		{
 		  //full file name
-		  name = new String(gr_el.ta_save.getText() + set.name + ".txt");	     
+		  timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		  name = new String(gr_el.ta_save.getText() + timeStamp + ".txt");	     
 		  
 		  //write into file -----
 		  writer = new BufferedWriter(new OutputStreamWriter(

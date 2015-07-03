@@ -4,6 +4,7 @@ package custom.threads;
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.*;
+import java.lang.Math.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.chart.renderer.xy.*;
@@ -51,7 +52,8 @@ public class HistGrapherThread extends Thread
 	renderer.setBarPainter(new StandardXYBarPainter()); //removes color gradient from bars
 	renderer.setSeriesPaint(0, Color.black);
 	renderer.setDrawBarOutline(false); 
-
+	
+	panel.removeAll();
 	panel.setChart(chart); //add graph to chart panel
 	//--------------------- /Create graph ----------------------------------------
 	Thread thisThread = Thread.currentThread();
@@ -68,7 +70,7 @@ public class HistGrapherThread extends Thread
 		     set = queue.poll();//remove the data, i.e HistGrapherThread: MY TURN
 		     if (set == null) 
 		     {
-		       TAWriter.TAWrite(target, new String("HistGraphThread error: queue changed too fast or unpredictably "));
+		       // TAWriter.TAWrite(target, new String("HistGraphThread error: queue changed too fast or unpredictably "));
 		       break;   
 		     }
 		     int length = set.getLength();		     
@@ -92,7 +94,10 @@ public class HistGrapherThread extends Thread
 		     }
 		     catch(RuntimeException ex) //if failed because there is no bin
 		     {//make new bin
-		       SimpleHistogramBin bin = new SimpleHistogramBin(value, value+1, true, false);
+		       int bs = 50;
+		       int floor = (int) Math.floor(value/bs);
+	
+		       SimpleHistogramBin bin = new SimpleHistogramBin(floor*bs, floor*bs+bs, true, false);
 		       try
 		       { 
 			 dataset.addBin(bin);//add new bin

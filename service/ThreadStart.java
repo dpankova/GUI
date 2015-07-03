@@ -94,7 +94,7 @@ public class ThreadStart
 	thread = new SaverThread(gsc,target,queue);
 	break;
       default: 
-	TAWriter.TAWrite(target, new String("Start Tread Type Error"+type));
+	TAWriter.TAWrite(target, new String("Start Tread Type Error "+type));
 	break;
       }
       thread.start(); 

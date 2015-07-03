@@ -28,9 +28,9 @@ public class GraphSavePanel extends JPanel
       
       setLayout(new MigLayout()); 
       setBorder(BorderFactory.createEtchedBorder());  
-      add(tb_save, "cell 2 0, width 150:150:150, height 25:25:25, align right, grow 0");
-      add(sp_save, "cell 0 0 , width 100:1000:1000, height 35:35:35, aligny top, grow");
-      add(b_sel_save, "cell 1 0, width 50:50:50, height 25:25:25, align center, grow 0");  
+      add(tb_save, "cell 2 0, width 150:150:150, height 25:25:25, grow 0");
+      add(sp_save, "cell 0 0 , width 150:1500:1500, height 35:35:35, growx");
+      add(b_sel_save, "cell 1 0, width 50:50:50, height 25:25:25, grow 0");  
 
       Map<Integer, Component> mapDisableSave= new HashMap<Integer, Component> (2);
       mapDisableSave.put(0,tb_save);
