@@ -14,4 +14,4 @@ to handle real data streams. This will require additional
 modifications.
 
 Known bugs to correct:
-1) Exit button doesn't finish firmaware process properly (in progress)
+
