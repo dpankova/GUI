@@ -17,5 +17,18 @@ In Terminal compile and execute (in the main GUI project directory:)
 3) Pop up window comes up, choose main project directory 
 4) Wait a bit, GUI should load now.
 
+USE:
+1) Select all the relevant file (4 total, at the upper part of the gui)
+  a) Nios2 shell file: /home/user/altera/13.1/nios2eds/nios2_command_shell.sh
+  b) Firmware fiie: ../gen2dom-fw/ddc2_sockit_nios2/quartus_project/output_files/ddc2_sockit_nios2_time_limited.sof
+  c) Config file: ../gen2dom-fw/ddc2_sockit_nios2/qsys_nios2/software/ddc2_nios2_sw/ddc2_nios2_sw.elf
+  d) Congig file: ../gen2dom-fw/ddc2_sockit_nios2/qsys_nios2/software/ddc2_nios2_sw/config.sh
+2) Press Enter NIOS2 (two Altera command shell messages should appear in command output)
+3) Make sure your laptop is commected to JTAG USB and FPGA is on and press Load Firmware.
+  Wait until success message.
+4) Press Load NIOS2
+5) Now it should be running. If data is comming in it should be displayed in a plot and histogramm windows.
+6) To save data select saving directory and press save data. It should start creating txt files in the directory.
+7)
 Known bugs to correct:
 
