@@ -9,9 +9,13 @@ gui.java     - main class (compile and run it to start the program)
                a file chooser class
 /lib/        - external libraries (jfreechart, miglayout)
 
-It's very likely this vertion of Gui is not fast enough 
-to handle real data streams. This will require additional 
-modifications.
+RUN:
+
+In Terminal compile and execute (in the main GUI project directory:) 
+1) javac gui.java
+2) java gui
+3) Pop up window comes up, choose main project directory 
+4) Wait a bit, GUI should load now.
 
 Known bugs to correct:
 
